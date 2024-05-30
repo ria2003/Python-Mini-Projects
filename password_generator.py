@@ -61,7 +61,7 @@ class PassGenerator(ThemedTk):
     
     def generate_password(self):
         pwd_len = self.pass_length.get()
-        if pwd_len.isdigit() and (int(pwd_len))>=1:  # Check if pwd_len consists only of digits
+        if pwd_len.isdigit() and (int(pwd_len))>=1:  
             characters = string.ascii_letters + string.digits + string.punctuation
             password = "".join(random.choice(characters) for i in range(int(pwd_len)))
             self.pwd.config(text=password)  
