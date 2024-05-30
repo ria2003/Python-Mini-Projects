@@ -7,7 +7,7 @@ from ttkthemes import ThemedTk
 class PassGenerator(ThemedTk):
     def __init__(self):
         super().__init__()
-
+        
         # Set the theme using ttkthemes
         self.set_theme("alt")
 
@@ -54,19 +54,17 @@ class PassGenerator(ThemedTk):
     def clear_placeholder(self, event):
         if self.pass_length.get()=="Enter password length":
             self.pass_length.delete(0,tk.END)
-            #self.pass_length.configure(style="Custom.TEntry")
 
     def fill_placeholder(self, event):
         if self.pass_length.get()=="":
             self.pass_length.insert(0,"Enter password length")
-            #self.pass_length.configure(style="Custom.TEntry")
-
+    
     def generate_password(self):
         pwd_len = self.pass_length.get()
-        if pwd_len.isdigit():  # Check if pwd_len consists only of digits
+        if pwd_len.isdigit() and (int(pwd_len))>=1:  # Check if pwd_len consists only of digits
             characters = string.ascii_letters + string.digits + string.punctuation
             password = "".join(random.choice(characters) for i in range(int(pwd_len)))
-            self.pwd.config(text=password)  # Update label text
+            self.pwd.config(text=password)  
         else:
             self.pwd.config(text="  Enter a valid password length  ")
 
