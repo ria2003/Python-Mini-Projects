@@ -9,7 +9,7 @@ class ContactBook(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Contact Book")
-        self.geometry("700x690")
+        self.geometry("700x680")
         self.configure(bg="white")
 
         title_frame = tk.Frame(self, bg="white")
@@ -31,26 +31,26 @@ class ContactBook(tk.Tk):
         self.name=tk.Entry(input_frame, font=("Arial", 11), fg="black", bg="LavenderBlush1", justify="center")
         self.name.grid(ipadx=64, ipady=6, pady=(0,20), row=0, column=0)
         self.name.insert(0, "Enter name: ")
-        self.name.bind("<FocusIn>", self.clear_placeholder_name)
-        self.name.bind("<FocusOut>", self.fill_placeholder_name)
+        self.name.bind("<FocusIn>", self.clear_placeholder)
+        self.name.bind("<FocusOut>", self.fill_placeholder)
 
         self.phone=tk.Entry(input_frame, font=("Arial", 11), fg="black", bg="LavenderBlush1", justify="center")
         self.phone.grid(ipadx=64, ipady=6, pady=(0,20), padx=(0,38), row=0, column=1)
         self.phone.insert(0, "Enter phone number: ")
-        self.phone.bind("<FocusIn>", self.clear_placeholder_phone)
-        self.phone.bind("<FocusOut>", self.fill_placeholder_phone)
+        self.phone.bind("<FocusIn>", self.clear_placeholder)
+        self.phone.bind("<FocusOut>", self.fill_placeholder)
 
         self.email=tk.Entry(input_frame, font=("Arial", 11), fg="black", bg="LavenderBlush1", justify="center")
         self.email.grid(ipadx=64, ipady=6, pady=(0,20), row=1, column=0)
         self.email.insert(0, "Enter email id: ")
-        self.email.bind("<FocusIn>", self.clear_placeholder_email)
-        self.email.bind("<FocusOut>", self.fill_placeholder_email)
+        self.email.bind("<FocusIn>", self.clear_placeholder)
+        self.email.bind("<FocusOut>", self.fill_placeholder)
 
         self.address=tk.Entry(input_frame, font=("Arial", 11), fg="black", bg="LavenderBlush1", justify="center")
         self.address.grid(ipadx=64, ipady=6, pady=(0,20), padx=(0,38), row=1, column=1)
         self.address.insert(0, "Enter address: ")
-        self.address.bind("<FocusIn>", self.clear_placeholder_address)
-        self.address.bind("<FocusOut>", self.fill_placeholder_address)
+        self.address.bind("<FocusIn>", self.clear_placeholder)
+        self.address.bind("<FocusOut>", self.fill_placeholder)
 
         self.add_btn=tk.Button(self, text="Add", bg="orchid4", fg="white", font=("Cooper Black", 12), command=self.add_contact)
         self.add_btn.pack(ipadx=30, pady=(0,20))
@@ -74,8 +74,8 @@ class ContactBook(tk.Tk):
         self.search_entry=tk.Entry(search_frame, bg="LavenderBlush1", fg="black", font=("Arial", 11), width=72, justify="center")
         self.search_entry.pack(side="left", ipady=6, padx=(35,15))
         self.search_entry.insert(0, "Search by name or phone")
-        self.search_entry.bind("<FocusIn>", self.clear_placeholder_search)
-        self.search_entry.bind("<FocusOut>", self.fill_placeholder_search)
+        self.search_entry.bind("<FocusIn>", self.clear_placeholder)
+        self.search_entry.bind("<FocusOut>", self.fill_placeholder)
         
         self.img2=Image.open(r'C:\Users\HP\Downloads\search-user.png')
         self.image2=self.img2.resize((32,32))
@@ -107,64 +107,32 @@ class ContactBook(tk.Tk):
         self.load_contacts()
     
 
-    def clear_placeholder_name(self, event):
-        if self.name.get()=="Enter name: ":
-            self.name.delete(0, tk.END)
-            self.name.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
+    def clear_placeholder(self, event):
+        widget = event.widget
+        placeholders = {
+            self.name: "Enter name: ",
+            self.phone: "Enter phone number: ",
+            self.email: "Enter email id: ",
+            self.address: "Enter address: ",
+            self.search_entry: "Search by name or phone"
+        }
+        if widget.get() == placeholders[widget]:
+            widget.delete(0, tk.END)
+            widget.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
 
 
-    def clear_placeholder_phone(self, event):
-        if self.phone.get()=="Enter phone number: ":
-            self.phone.delete(0, tk.END)
-            self.phone.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1") 
-
-
-    def clear_placeholder_email(self, event): 
-        if self.email.get()=="Enter email id: ":
-            self.email.delete(0, tk.END)
-            self.email.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
-
-
-    def clear_placeholder_address(self, event):
-        if self.address.get()=="Enter address: ":
-            self.address.delete(0, tk.END)
-            self.address.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
-
-    
-    def clear_placeholder_search(self, event):
-        if self.search_entry.get() == "Search by name or phone":
-            self.search_entry.delete(0, tk.END)
-            self.search_entry.configure(bg="LavenderBlush1", fg="black", font=("Arial", 11))
-
-
-    def fill_placeholder_name(self,event):
-        if self.name.get()=="":
-            self.name.insert(0, "Enter name: ")
-            self.name.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
-
-
-    def fill_placeholder_phone(self,event):
-        if self.phone.get()=="":
-            self.phone.insert(0, "Enter phone number: ")
-            self.phone.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
-
-
-    def fill_placeholder_email(self,event):
-        if self.email.get()=="":
-            self.email.insert(0, "Enter email id: ")
-            self.email.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
-
-
-    def fill_placeholder_address(self,event):
-        if self.address.get()=="":
-            self.address.insert(0, "Enter address: ")
-            self.address.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
-
-
-    def fill_placeholder_search(self, event):
-        if self.search_entry.get() == "":
-            self.search_entry.insert(0, "Search by name or phone")
-            self.search_entry.configure(bg="LavenderBlush1", fg="black", font=("Arial", 11))
+    def fill_placeholder(self, event):
+        widget = event.widget
+        placeholders = {
+            self.name: "Enter name: ",
+            self.phone: "Enter phone number: ",
+            self.email: "Enter email id: ",
+            self.address: "Enter address: ",
+            self.search_entry: "Search by name or phone"
+        }
+        if widget.get() == "":
+            widget.insert(0, placeholders[widget])
+            widget.configure(font=("Arial", 11), fg="black", bg="LavenderBlush1")
 
     
     def add_contact(self):
@@ -174,13 +142,14 @@ class ContactBook(tk.Tk):
         address=self.address.get()
 
         if name and phone and email and address and name != "Enter name: " and phone != "Enter phone number: " and email != "Enter email id: " and address != "Enter address: ":
-            if phone.isdigit() and validate_email(email)==True:
+            if phone.isdigit() and validate_email(email):
                 self.contact_list.insert('', tk.END, values=(name, phone, email, address))
                 self.name.delete(0, tk.END)
                 self.phone.delete(0, tk.END)
                 self.email.delete(0, tk.END)
                 self.address.delete(0, tk.END)
                 self.save_contacts()
+                messagebox.showinfo("Contact Saved", "Contact saved successfully!")
             else:
                 messagebox.showerror("Error", "Invalid phone number or email id")
         else:
@@ -220,14 +189,21 @@ class ContactBook(tk.Tk):
         for item in self.contact_list.get_children():
             self.contact_list.delete(item)
 
+        found_contact=False
+
         try:
             with open("contacts.json", "r") as f:
                 data = json.load(f)
                 for contact in data:
                     if query.lower() in contact["name"].lower() or query in str(contact["phone"]):
                         self.contact_list.insert('', tk.END, values=(contact["name"], contact["phone"], contact["email"], contact["address"]))
+                        found_contact=True
+
+            if not found_contact:
+                messagebox.showinfo("Search Results", "No contacts found.")
+
         except FileNotFoundError:
-            pass
+            messagebox.showinfo("Search Results", "No contacts found.")
 
     
     def view_contacts(self):
@@ -237,10 +213,14 @@ class ContactBook(tk.Tk):
         try:
             with open("contacts.json","r") as f:
                 data=json.load(f)
-                for contact in data:
-                    self.contact_list.insert('', tk.END, values=(contact["name"], contact["phone"], contact["email"], contact["address"]))
+                if data:
+                    for contact in data:
+                        self.contact_list.insert('', tk.END, values=(contact["name"], contact["phone"], contact["email"], contact["address"]))
+                else:
+                    messagebox.showinfo("View Contacts", "No contacts available.")
+                    
         except FileNotFoundError:
-            pass
+            messagebox.showinfo("View Contacts", "No contacts available.")
     
 
     def edit_contact(self):
