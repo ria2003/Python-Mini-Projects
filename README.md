@@ -1,2 +1,2 @@
 # CodSoft-Projects
-This repository contains all my projects which i completed during my virtual internship at CodSoft.
+This repository contains python desktop applications built using Tkinter library of Python.
